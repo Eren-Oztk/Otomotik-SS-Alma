@@ -35,7 +35,7 @@ Birden fazla ekranla çalışırken veya oyun oynarken pencere değiştirmeden, 
 ## Kurulum & Kullanım
 
 ### Seçenek 1: Hazır .exe (Windows İçin Önerilen)
-[Releases](https://github.com/Eren-Oztk/f10_ss/releases) sayfasından `ss_f10.exe` dosyasını indirin ve doğrudan çalıştırın. Hiçbir kurulum gerektirmez.
+[Releases](https://github.com/Eren-Oztk/Otomotik-SS-Alma/releases) sayfasından `ss_f10.exe` dosyasını indirin ve doğrudan çalıştırın. Hiçbir kurulum gerektirmez.
 
 ### Seçenek 2: Kaynak Koddan Çalıştırma
 1. Repoyu klonlayın:
