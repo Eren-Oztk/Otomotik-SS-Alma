@@ -6,9 +6,9 @@
 
 <br>
 
-[![Live Demo](https://img.shields.io/badge/🌐_Canlı_Demo-GitHub_Pages-1f6feb?style=for-the-badge)](https://eren-oztk.github.io/f10_ss)
-[![Language](https://img.shields.io/badge/Python-3.x-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://github.com/Eren-Oztk/f10_ss)
-[![Platform](https://img.shields.io/badge/Platform-Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/Eren-Oztk/f10_ss)
+[![Live Demo](https://img.shields.io/badge/🌐_Canlı_Demo-GitHub_Pages-1f6feb?style=for-the-badge)](https://eren-oztk.github.io/Otomotik-SS-Alma)
+[![Language](https://img.shields.io/badge/Python-3.x-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://github.com/Eren-Oztk/Otomotik-SS-Alma)
+[![Platform](https://img.shields.io/badge/Platform-Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/Eren-Oztk/Otomotik-SS-Alma)
 
 </div>
 
@@ -40,4 +40,4 @@ Birden fazla ekranla çalışırken veya oyun oynarken pencere değiştirmeden, 
 ### Seçenek 2: Kaynak Koddan Çalıştırma
 1. Repoyu klonlayın:
    ```bash
-   git clone [https://github.com/Eren-Oztk/f10_ss.git](https://github.com/Eren-Oztk/f10_ss.git)
+   git clone https://github.com/Eren-Oztk/Otomotik-SS-Alma.git
