@@ -12,7 +12,20 @@
       background: #0d1117;
       color: #e6edf3;
       min-height: 100vh;
+      overflow-x: hidden;
     }
+
+    /* Flaş Efekti */
+    .flash-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: #ffffff;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 9999;
+      transition: opacity 0.1s ease-out;
+    }
+    .flash-overlay.active { opacity: 0.6; transition: none; }
 
     /* HERO */
     .hero {
@@ -71,12 +84,19 @@
     .btn-primary { background: #238636; color: #fff; }
     .btn-secondary { background: #21262d; color: #e6edf3; border: 1px solid #30363d; }
 
-    /* MOCK APP */
-    .app-preview {
+    /* İNTERAKTİF DEMO ALANI */
+    .demo-container {
       display: flex;
       justify-content: center;
+      align-items: flex-start;
+      gap: 30px;
       padding: 60px 24px 0;
+      flex-wrap: wrap;
+      max-width: 900px;
+      margin: 0 auto;
     }
+
+    /* MOCK APP WINDOW */
     .window {
       width: 340px;
       background: #161b22;
@@ -105,7 +125,7 @@
     }
     .window-body { padding: 20px; display: flex; flex-direction: column; gap: 14px; }
     .field label { display: block; font-size: 12px; color: #8b949e; margin-bottom: 4px; }
-    .mock-input {
+    .mock-input, .mock-select {
       background: #0d1117;
       border: 1px solid #30363d;
       border-radius: 6px;
@@ -113,17 +133,11 @@
       font-size: 13px;
       color: #e6edf3;
       width: 100%;
+      outline: none;
     }
-    .mock-select {
-      background: #0d1117;
-      border: 1px solid #30363d;
-      border-radius: 6px;
-      padding: 8px 10px;
-      font-size: 13px;
-      color: #e6edf3;
-      width: 100%;
-      appearance: none;
-    }
+    .mock-select { cursor: pointer; }
+    .mock-select:focus { border-color: #58a6ff; }
+    
     .btn-row { display: flex; gap: 8px; }
     .mock-btn {
       flex: 1;
@@ -132,10 +146,16 @@
       font-size: 13px;
       font-weight: 600;
       border: none;
-      cursor: default;
+      cursor: pointer;
+      transition: all 0.2s;
     }
-    .mock-btn-start { background: #238636; color: #fff; }
+    .mock-btn-start { background: #2ea043; color: #fff; }
+    .mock-btn-start:hover { background: #3fb950; }
+    .mock-btn-start.active { background: #238636; box-shadow: inset 0 2px 4px rgba(0,0,0,0.2); pointer-events: none; opacity: 0.6; }
+    
     .mock-btn-stop  { background: #21262d; color: #8b949e; border: 1px solid #30363d; }
+    .mock-btn-stop:hover { background: #30363d; color: #e6edf3; }
+    
     .status-bar {
       background: #1f6feb11;
       border: 1px solid #1f6feb33;
@@ -144,6 +164,72 @@
       font-size: 12px;
       color: #58a6ff;
       text-align: center;
+      transition: all 0.3s;
+    }
+
+    .virtual-key-btn {
+      display: none;
+      margin-top: 10px;
+      background: #1f6feb;
+      color: #fff;
+      border: none;
+      padding: 8px;
+      border-radius: 6px;
+      font-size: 12px;
+      cursor: pointer;
+      text-align: center;
+      animation: pulse 2s infinite;
+    }
+    .virtual-key-btn.show { display: block; }
+    
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(31, 111, 235, 0.4); }
+      70% { box-shadow: 0 0 0 6px rgba(31, 111, 235, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(31, 111, 235, 0); }
+    }
+
+    /* SAHTE KLASÖR PENCERESİ */
+    .folder-window {
+      width: 320px;
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 300px;
+    }
+    .folder-header {
+      background: #161b22;
+      padding: 8px 12px;
+      font-size: 12px;
+      color: #8b949e;
+      border-bottom: 1px solid #30363d;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .folder-body {
+      padding: 12px;
+      flex: 1;
+      overflow-y: auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-content: flex-start;
+      gap: 12px;
+    }
+    .file-item {
+      width: 60px;
+      text-align: center;
+      animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .file-icon { font-size: 32px; line-height: 1; margin-bottom: 4px; }
+    .file-name { font-size: 10px; color: #c9d1d9; word-wrap: break-word; }
+    .empty-text { font-size: 12px; color: #6e7681; text-align: center; width: 100%; margin-top: 50px; }
+
+    @keyframes popIn {
+      0% { opacity: 0; transform: scale(0.5); }
+      100% { opacity: 1; transform: scale(1); }
     }
 
     /* FEATURES */
@@ -205,7 +291,8 @@
 </head>
 <body>
 
-  <!-- HERO -->
+  <div class="flash-overlay" id="flash-screen"></div>
+
   <section class="hero">
     <div class="badge">Windows Masaüstü Uygulama</div>
     <h1>Monitör & Tuş Seçimli<br><span>Ekran Görüntüsü Aracı</span></h1>
@@ -220,8 +307,8 @@
     </div>
   </section>
 
-  <!-- MOCK APP WINDOW -->
-  <div class="app-preview">
+  <div class="demo-container">
+    
     <div class="window">
       <div class="titlebar">
         <div class="dot dot-red"></div>
@@ -232,33 +319,45 @@
       <div class="window-body">
         <div class="field">
           <label>Kaydedilecek Klasör</label>
-          <div class="mock-input">C:\Users\kullanici\Masaustu\SS</div>
+          <input type="text" class="mock-input" value="C:\Users\kullanici\Masaustu\SS" readonly>
         </div>
         <div class="field">
           <label>Monitör Seç</label>
-          <select class="mock-select" disabled>
+          <select class="mock-select" id="monitor-select">
             <option>Monitör 1</option>
             <option selected>Monitör 2</option>
           </select>
         </div>
         <div class="field">
-          <label>Tuş Seç</label>
-          <select class="mock-select" disabled>
-            <option>F9</option>
-            <option selected>F10</option>
-            <option>F11</option>
+          <label>Tuş Seç (Simülasyon için çalışır)</label>
+          <select class="mock-select" id="key-select">
+            <option value="F9">F9</option>
+            <option value="F10" selected>F10</option>
+            <option value="Enter">Enter</option>
+            <option value="Space">Space (Boşluk)</option>
           </select>
         </div>
         <div class="btn-row">
-          <button class="mock-btn mock-btn-start">Başlat</button>
-          <button class="mock-btn mock-btn-stop">Durdur</button>
+          <button class="mock-btn mock-btn-start" id="btn-start" onclick="startApp()">Başlat</button>
+          <button class="mock-btn mock-btn-stop" id="btn-stop" onclick="stopApp()">Durdur</button>
         </div>
-        <div class="status-bar">F10 tusu dinleniyor...</div>
+        <div class="status-bar" id="status-text" style="color: #8b949e; border-color: #30363d; background: transparent;">Sistem hazır. Başlat'a basın.</div>
+        
+        <button class="virtual-key-btn" id="virtual-key" onclick="simulateKeyPress()">Sanal Klavyeden Bas</button>
       </div>
     </div>
+
+    <div class="folder-window">
+      <div class="folder-header">
+        📁 Masaustu > SS
+      </div>
+      <div class="folder-body" id="folder-content">
+        <div class="empty-text" id="empty-state">Klasör şu an boş.<br>SS alındıkça buraya eklenecek.</div>
+      </div>
+    </div>
+
   </div>
 
-  <!-- FEATURES -->
   <div class="section">
     <h2 class="section-title">Neden F10 SS?</h2>
     <div class="features">
@@ -270,7 +369,7 @@
       <div class="card">
         <div class="card-icon">⌨️</div>
         <h3>Özelleştirilebilir Kısayol</h3>
-        <p>F9, F10, F11, F12, Print Screen, Insert veya Home — hangisi elinize yakınsa onu seçin.</p>
+        <p>F9, F10, Enter veya Space — hangisi elinize yakınsa onu seçin.</p>
       </div>
       <div class="card">
         <div class="card-icon">📁</div>
@@ -285,7 +384,6 @@
     </div>
   </div>
 
-  <!-- INSTALL -->
   <div class="install-section">
     <div class="section">
       <h2 class="section-title">Kaynak Koddan Çalıştırma</h2>
@@ -300,12 +398,118 @@
     </div>
   </div>
 
-  <!-- FOOTER -->
   <footer>
-    <a href="../../">GitHub</a> &nbsp;·&nbsp;
+    <a href="https://github.com/Eren-Oztk">GitHub</a> &nbsp;·&nbsp;
     MIT Lisansı &nbsp;·&nbsp;
     Python &amp; tkinter &amp; mss ile yapıldı
   </footer>
+
+  <script>
+    let isRunning = false;
+    let selectedKey = "F10";
+    let ssCount = 1;
+
+    const btnStart = document.getElementById('btn-start');
+    const keySelect = document.getElementById('key-select');
+    const monitorSelect = document.getElementById('monitor-select');
+    const statusText = document.getElementById('status-text');
+    const folderContent = document.getElementById('folder-content');
+    const emptyState = document.getElementById('empty-state');
+    const flashScreen = document.getElementById('flash-screen');
+    const virtualKeyBtn = document.getElementById('virtual-key');
+
+    // Uygulamayı Başlat
+    function startApp() {
+      isRunning = true;
+      selectedKey = keySelect.value;
+      
+      // UI Güncellemeleri
+      btnStart.classList.add('active');
+      keySelect.disabled = true;
+      monitorSelect.disabled = true;
+      
+      statusText.innerText = `🟢 ${selectedKey} tuşu dinleniyor...`;
+      statusText.style.color = '#28c840';
+      statusText.style.borderColor = '#28c84055';
+      statusText.style.background = '#28c84011';
+
+      virtualKeyBtn.innerText = `Sanal ${selectedKey} Tuşuna Bas`;
+      virtualKeyBtn.classList.add('show');
+    }
+
+    // Uygulamayı Durdur
+    function stopApp() {
+      isRunning = false;
+      
+      // UI Güncellemeleri
+      btnStart.classList.remove('active');
+      keySelect.disabled = false;
+      monitorSelect.disabled = false;
+      
+      statusText.innerText = `🔴 Durduruldu.`;
+      statusText.style.color = '#ff5f57';
+      statusText.style.borderColor = '#ff5f5755';
+      statusText.style.background = '#ff5f5711';
+
+      virtualKeyBtn.classList.remove('show');
+    }
+
+    // Fotoğraf Çekme (Flaş ve Klasöre Ekleme)
+    function takeScreenshot() {
+      if (!isRunning) return;
+
+      // 1. Flaş Patlat
+      flashScreen.classList.add('active');
+      setTimeout(() => {
+        flashScreen.classList.remove('active');
+      }, 50); // Flaş sönme hızı
+
+      // 2. Klasördeki Boş yazısını kaldır
+      if (emptyState) emptyState.style.display = 'none';
+
+      // 3. Dosya ismini oluştur (örn: ss_001.png)
+      const fileName = `ss_${String(ssCount).padStart(3, '0')}.png`;
+      ssCount++;
+
+      // 4. Klasöre yeni dosyayı ekle
+      const fileEl = document.createElement('div');
+      fileEl.className = 'file-item';
+      fileEl.innerHTML = `
+        <div class="file-icon">🖼️</div>
+        <div class="file-name">${fileName}</div>
+      `;
+      folderContent.appendChild(fileEl);
+
+      // Klasörü en alta kaydır
+      folderContent.scrollTop = folderContent.scrollHeight;
+
+      // Durumu anlık güncelle
+      const oldText = statusText.innerText;
+      statusText.innerText = `✅ Kaydedildi: ${fileName}`;
+      setTimeout(() => {
+        if(isRunning) statusText.innerText = `🟢 ${selectedKey} tuşu dinleniyor...`;
+      }, 1500);
+    }
+
+    // Mobil / Manuel Tetikleme İçin
+    function simulateKeyPress() {
+      takeScreenshot();
+    }
+
+    // Gerçek Klavyeyi Dinleme
+    window.addEventListener('keydown', function(e) {
+      if (!isRunning) return;
+
+      // Basılan tuşu formatla (örn: "f10" -> "F10", " " -> "Space")
+      let pressedKey = e.key;
+      if (pressedKey === " ") pressedKey = "Space";
+      
+      if (pressedKey.toLowerCase() === selectedKey.toLowerCase()) {
+        e.preventDefault(); // Tarayıcının varsayılan F10/Space işlevini engelle
+        takeScreenshot();
+      }
+    });
+  </script>
 
 </body>
 </html>
