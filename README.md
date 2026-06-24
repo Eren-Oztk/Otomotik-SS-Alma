@@ -6,9 +6,9 @@
 
 <br>
 
-[![Live Demo](https://img.shields.io/badge/🌐_Canlı_Demo-GitHub_Pages-1f6feb?style=for-the-badge)](https://eren-oztk.github.io/Otomotik-SS-Alma)
-[![Language](https://img.shields.io/badge/Python-3.x-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://github.com/Eren-Oztk/Otomotik-SS-Alma)
-[![Platform](https://img.shields.io/badge/Platform-Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/Eren-Oztk/Otomotik-SS-Alma)
+[![Live Demo](https://img.shields.io/badge/🌐_Canlı_Demo-GitHub_Pages-1f6feb?style=for-the-badge)](https://eren-oztk.github.io/multi-monitor-screenshot-tool)
+[![Language](https://img.shields.io/badge/Python-3.x-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://github.com/Eren-Oztk/multi-monitor-screenshot-tool)
+[![Platform](https://img.shields.io/badge/Platform-Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/Eren-Oztk/multi-monitor-screenshot-tool)
 
 </div>
 
@@ -35,9 +35,9 @@ Birden fazla ekranla çalışırken veya oyun oynarken pencere değiştirmeden, 
 ## Kurulum & Kullanım
 
 ### Seçenek 1: Hazır .exe (Windows İçin Önerilen)
-[Releases](https://github.com/Eren-Oztk/Otomotik-SS-Alma/releases) sayfasından `ss_f10.exe` dosyasını indirin ve doğrudan çalıştırın. Hiçbir kurulum gerektirmez.
+[Releases](https://github.com/Eren-Oztk/multi-monitor-screenshot-tool/releases) sayfasından `ss_f10.exe` dosyasını indirin ve doğrudan çalıştırın. Hiçbir kurulum gerektirmez.
 
 ### Seçenek 2: Kaynak Koddan Çalıştırma
 1. Repoyu klonlayın:
    ```bash
-   git clone https://github.com/Eren-Oztk/Otomotik-SS-Alma.git
+   git clone https://github.com/Eren-Oztk/multi-monitor-screenshot-tool.git
